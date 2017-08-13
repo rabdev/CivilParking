@@ -6,4 +6,5 @@ package hu.bitnet.civilparking.Objects;
 
 public class Constants {
 
+    public static final String IS_LOGGED_IN = "isLoggedIn";
 }
