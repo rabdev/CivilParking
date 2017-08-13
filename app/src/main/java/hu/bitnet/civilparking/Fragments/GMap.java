@@ -32,7 +32,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polyline;
 
-import hu.bitnet.civilparking.Objects.Constants;
 import hu.bitnet.civilparking.R;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
@@ -191,9 +190,11 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
         } else {
             double c = location.getLatitude();
             double d = location.getLongitude();
+            c = 47.5165533;
+            d = 19.1141314;
             LatLng myloc = new LatLng(c, d);
             gmap.animateCamera(CameraUpdateFactory.newLatLng(myloc));
-            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 12));
+            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 18));
         }
 
     }

@@ -4,6 +4,7 @@ import hu.bitnet.civilparking.Objects.BLE;
 import hu.bitnet.civilparking.Objects.MQTT;
 import hu.bitnet.civilparking.Objects.Parking_places;
 import hu.bitnet.civilparking.Objects.Profile;
+import hu.bitnet.civilparking.Objects.Error;
 
 /**
  * Created by Attila on 2017.08.13..

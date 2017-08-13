@@ -7,4 +7,6 @@ package hu.bitnet.civilparking.Objects;
 public class Constants {
 
     public static final String IS_LOGGED_IN = "isLoggedIn";
+    public static final String SERVER_URL = "http://civilparking.digitalwave.hu/app/";
+
 }

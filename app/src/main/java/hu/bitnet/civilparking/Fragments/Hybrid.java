@@ -190,9 +190,11 @@ public class Hybrid extends Fragment implements LocationListener, OnMapReadyCall
         } else {
             double c = location.getLatitude();
             double d = location.getLongitude();
+            c = 47.5165533;
+            d = 19.1141314;
             LatLng myloc = new LatLng(c, d);
             gmap.animateCamera(CameraUpdateFactory.newLatLng(myloc));
-            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 12));
+            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 18));
         }
 
     }
