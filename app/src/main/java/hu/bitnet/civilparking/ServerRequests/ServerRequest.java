@@ -6,7 +6,7 @@ import hu.bitnet.civilparking.Objects.Profile;
  * Created by Attila on 2017.08.13..
  */
 
-public class Serverrequest {
+public class ServerRequest {
 
     private String email;
     private String password;
