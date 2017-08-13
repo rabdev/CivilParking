@@ -1,6 +1,7 @@
 package hu.bitnet.civilparking;
 
 import android.*;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -10,15 +11,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import hu.bitnet.civilparking.Fragments.Login;
+import hu.bitnet.civilparking.Objects.Constants;
+
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
 
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
@@ -29,7 +35,16 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        fragmentManager = getSupportFragmentManager();
+        /*if (preferences.getBoolean(Constants.IS_LOGGED_IN, true)) {
+            setContentView(R.layout.activity_main);
+            //loadJSON(sessionId, id);
+        } else {
+            Login login = new Login();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame, login, login.getTag())
+                    .commit();
+        }*/
+
 
         MapsContainer mapsContainer = new MapsContainer();
         fragmentManager.beginTransaction()
