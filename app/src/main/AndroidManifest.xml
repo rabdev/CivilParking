@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="hu.bitnet.civilparking">
 
-    <uses-permission android:name="hu.bitnet.smartparking.permission.MAPS_RECEIVE" />
-
+    <permission
+        android:name="hu.bitnet.civilparking.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="hu.bitnet.civilparking.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
@@ -24,6 +26,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDe06nlziJ8j-BmaKDwNVgmaFZTcRH3pCw"/>
     </application>
 
 </manifest>
