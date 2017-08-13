@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.ActivityRecognition;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -67,7 +68,23 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View sat = inflater.inflate(R.layout.fragment_satellite, container, false);
+        View sat = inflater.inflate(R.layout.fragment_gmap, container, false);
+
+        mapView = (MapView) sat.findViewById(R.id.gmapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .addApi(ActivityRecognition.API)
+                .build();
+        mGoogleApiClient.connect();
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(MINUTE);
+        mLocationRequest.setFastestInterval(15 * MILLISECONDS_PER_SECOND);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
         return sat;
     }
 
@@ -104,7 +121,6 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
         gmap = googleMap;
         gmap.setMyLocationEnabled(true);
         gmap.getUiSettings().setMyLocationButtonEnabled(true);
-
         gmap.setMapType(gmap.MAP_TYPE_SATELLITE);
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -185,7 +201,7 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
 
     @Override
     public void onResume() {
-        //mapView.onResume();
+        mapView.onResume();
         super.onResume();
     }
 }

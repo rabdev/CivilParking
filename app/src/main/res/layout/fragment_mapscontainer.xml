@@ -6,7 +6,7 @@
     tools:context="hu.bitnet.civilparking.MapsContainer"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary">
@@ -17,7 +17,7 @@
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextColor="@color/colorGrey"/>
-    </LinearLayout>
+    </FrameLayout>
 
 
     <android.support.v4.view.ViewPager

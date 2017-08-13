@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -53,7 +54,7 @@ import static com.google.android.gms.maps.GoogleMap.*;
  */
 public class MapsContainer extends Fragment{
 
-    private ViewPager homeviewPager;
+    private ViewPager mapviewPager;
     private TabLayout tabLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     SharedPreferences pref;
@@ -73,23 +74,24 @@ public class MapsContainer extends Fragment{
         View maps = inflater.inflate(R.layout.fragment_mapscontainer, container, false);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getActivity().getSupportFragmentManager());
-        homeviewPager = (ViewPager) maps.findViewById(R.id.map_container);
-        homeviewPager.setAdapter(mSectionsPagerAdapter);
+        mapviewPager = (ViewPager) maps.findViewById(R.id.map_container);
+        mapviewPager.setAdapter(mSectionsPagerAdapter);
+
 
 
         tabLayout = (TabLayout) maps.findViewById(R.id.map_tab);
-        tabLayout.setupWithViewPager(homeviewPager);
+        tabLayout.setupWithViewPager(mapviewPager);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                int position = tab.getPosition();
+                /*int position = tab.getPosition();
                 if (position==0){
                     gMap.gmap.setMapType(MAP_TYPE_NORMAL);
                 } else if (position == 1) {
                     gMap.gmap.setMapType(MAP_TYPE_TERRAIN);
                 } else if (position==2){
                     gMap.gmap.setMapType(MAP_TYPE_SATELLITE);
-                }
+                }*/
 
             }
 
@@ -121,11 +123,11 @@ public class MapsContainer extends Fragment{
                     gMap = new GMap();
                     return gMap;
                 case 1:
-                    gMap = new GMap();
-                    return gMap;
+                    Hybrid hybrid = new Hybrid();
+                    return hybrid;
                 case 2:
-                    gMap = new GMap();
-                    return gMap;
+                    Satellite sat = new Satellite();
+                    return sat;
                 case 3:
                     MapDraw mapDraw = new MapDraw();
                     return mapDraw;

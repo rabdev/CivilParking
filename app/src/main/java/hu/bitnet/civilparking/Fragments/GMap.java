@@ -120,7 +120,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
         gmap = googleMap;
         gmap.setMyLocationEnabled(true);
         gmap.getUiSettings().setMyLocationButtonEnabled(true);
-
+        gmap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();
