@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@color/colorGrey" />
+            app:tabTextColor="@color/colorGrey"/>
     </LinearLayout>
 
 
@@ -24,7 +24,12 @@
         android:id="@+id/map_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    </android.support.v4.view.ViewPager>
+
+
 
 
 </LinearLayout>

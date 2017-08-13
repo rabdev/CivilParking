@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.Polyline;
 
+import hu.bitnet.civilparking.Objects.Constants;
 import hu.bitnet.civilparking.R;
 
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
@@ -119,6 +120,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
         gmap = googleMap;
         gmap.setMyLocationEnabled(true);
         gmap.getUiSettings().setMyLocationButtonEnabled(true);
+
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         String bestProvider = String.valueOf(locationManager.getBestProvider(criteria, true)).toString();

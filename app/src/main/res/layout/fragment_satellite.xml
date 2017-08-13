@@ -1,13 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hu.bitnet.civilparking.Fragments.Satellite">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    tools:context="hu.bitnet.civilparking.Fragments.GMap"
+    android:paddingRight="4dp"
+    android:paddingLeft="4dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/gmapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:apiKey="AIzaSyCCDNiowilutUpbHbn-a0EcJJ6ZitVihoU"/>
 
-</FrameLayout>
+</LinearLayout>

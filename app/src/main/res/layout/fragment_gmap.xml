@@ -4,12 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:orientation="vertical"
-    tools:context="hu.bitnet.civilparking.Fragments.GMap">
+    tools:context="hu.bitnet.civilparking.Fragments.GMap"
+    android:paddingRight="4dp"
+    android:paddingLeft="4dp">
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/gmapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:apiKey="AIzaSyDe06nlziJ8j-BmaKDwNVgmaFZTcRH3pCw "/>
+        android:apiKey="AIzaSyDe06nlziJ8j-BmaKDwNVgmaFZTcRH3pCw"/>
 
 </LinearLayout>
