@@ -8,10 +8,15 @@
     tools:context="hu.bitnet.civilparking.MainActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:background="@color/colorPrimary">
+        android:layout_width="wrap_content"
+        android:layout_height="177dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/cp_header"
+            android:scaleType="centerCrop"/>
 
     </LinearLayout>
 

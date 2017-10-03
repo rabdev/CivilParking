@@ -5,9 +5,31 @@
     tools:context="hu.bitnet.civilparking.Fragments.Parking">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Chronometer
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/chronometer"
+        android:textSize="22dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stop"
+        android:text="Parkolás leállítása"
+        android:background="@color/colorRed"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="22dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"/>
+
+</RelativeLayout>
+
+
 
 </FrameLayout>

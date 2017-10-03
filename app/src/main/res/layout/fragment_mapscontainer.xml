@@ -17,6 +17,7 @@
             app:tabIndicatorColor="@color/colorPrimary"
             app:tabSelectedTextColor="@color/colorAccent"
             app:tabTextColor="@color/colorGrey"/>
+
     </FrameLayout>
 
 
@@ -28,7 +29,6 @@
 
 
     </android.support.v4.view.ViewPager>
-
 
 
 

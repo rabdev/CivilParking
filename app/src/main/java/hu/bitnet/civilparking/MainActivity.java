@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import hu.bitnet.civilparking.Fragments.Login;
+import hu.bitnet.civilparking.Fragments.ParkingList;
+import hu.bitnet.civilparking.Objects.Constants;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
+        preferences = getPreferences(0);
 
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
@@ -32,15 +35,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        /*if (preferences.getBoolean(Constants.IS_LOGGED_IN, true)) {
+        if (preferences.getBoolean(Constants.IS_LOGGED_IN, true)) {
             setContentView(R.layout.activity_main);
-            //loadJSON(sessionId, id);
-        } else {*/
+            ParkingList parkingList = new ParkingList();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frame, parkingList, parkingList.getTag())
+                    .addToBackStack(null)
+                    .commit();
+
+        } else {
             Login login = new Login();
             fragmentManager.beginTransaction()
                     .replace(R.id.frame, login, login.getTag())
                     .commit();
-        //}
+        }
 
 
         /*MapsContainer mapsContainer = new MapsContainer();

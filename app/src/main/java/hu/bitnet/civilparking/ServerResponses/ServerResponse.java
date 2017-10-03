@@ -1,10 +1,11 @@
 package hu.bitnet.civilparking.ServerResponses;
 
 import hu.bitnet.civilparking.Objects.BLE;
+import hu.bitnet.civilparking.Objects.Error;
 import hu.bitnet.civilparking.Objects.MQTT;
+import hu.bitnet.civilparking.Objects.ParkingListObject;
 import hu.bitnet.civilparking.Objects.Parking_places;
 import hu.bitnet.civilparking.Objects.Profile;
-import hu.bitnet.civilparking.Objects.Error;
 
 /**
  * Created by Attila on 2017.08.13..
@@ -17,6 +18,7 @@ public class ServerResponse {
     private String alert;
     private Parking_places[] parking_places;
     private Parking_places[] addresses;
+    private ParkingListObject[] parking_list;
     private MQTT mqtt;
     private BLE ble;
     private String start;
@@ -37,5 +39,6 @@ public class ServerResponse {
     public String getTime() { return time; }
     public String getPrice() { return price; }
     public String getName() { return name; }
+    public ParkingListObject[] getParkingList() { return parking_list; }
 
 }
