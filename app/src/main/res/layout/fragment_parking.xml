@@ -10,8 +10,9 @@
     android:layout_height="match_parent">
 
     <Chronometer
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:id="@+id/chronometer"
         android:textSize="22dp"
         android:layout_centerHorizontal="true"
@@ -21,8 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/stop"
+        android:layout_centerInParent="true"
         android:text="Parkolás leállítása"
-        android:background="@color/colorRed"
+        android:background="@drawable/round_button"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="22dp"
         android:paddingLeft="4dp"

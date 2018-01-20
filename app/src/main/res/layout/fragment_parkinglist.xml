@@ -3,14 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorGainsboro"
     android:gravity="center"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGainsboro"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="11px"
+            android:text="Kérem, adja meg a gépjárműve rendszámát!"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="22px"
+            android:hint="ABC-123"
+            android:imeOptions="actionDone"
+            android:maxLength="7"
+            android:inputType="textShortMessage|textCapCharacters"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="28sp"
+            android:id="@+id/licenceplate" />
+    </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/parkinglist"
+        android:background="@color/colorPrimary"
         android:isScrollContainer="true">
     </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="1px"
+            android:text="Kérem, válassza ki az Önnek kijelölt parkolóhelyet!"
+            android:textAlignment="center"
+            android:textSize="11sp" />
+
+    </LinearLayout>
 </LinearLayout>

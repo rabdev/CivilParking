@@ -49,7 +49,7 @@ public class ListAdapter extends ArrayAdapter<ParkingListObject> {
         ParkingListObject item = getItem(position);
 
         vh.textViewName.setText(item.getName());
-        vh.textViewEmail.setText(item.getDescription());
+        //vh.textViewEmail.setText(item.getDescription());
 
         return vh.rootView;
     }
@@ -57,18 +57,19 @@ public class ListAdapter extends ArrayAdapter<ParkingListObject> {
     private static class ViewHolder {
         public final RelativeLayout rootView;
         public final TextView textViewName;
-        public final TextView textViewEmail;
+        //public final TextView textViewEmail;
 
-        private ViewHolder(RelativeLayout rootView, TextView textViewName, TextView textViewEmail) {
+        private ViewHolder(RelativeLayout rootView, TextView textViewName) {
             this.rootView = rootView;
             this.textViewName = textViewName;
-            this.textViewEmail = textViewEmail;
+            //this.textViewEmail = textViewEmail;
         }
 
         public static ViewHolder create(RelativeLayout rootView) {
             TextView textViewName = (TextView) rootView.findViewById(R.id.textViewName);
-            TextView textViewEmail = (TextView) rootView.findViewById(R.id.textViewEmail);
-            return new ViewHolder(rootView, textViewName, textViewEmail);
+            return new ViewHolder(rootView, textViewName);
+            //TextView textViewEmail = (TextView) rootView.findViewById(R.id.textViewEmail);
+            //return new ViewHolder(rootView, textViewName, textViewEmail);
         }
     }
 }

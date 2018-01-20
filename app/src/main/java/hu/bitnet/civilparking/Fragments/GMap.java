@@ -3,6 +3,7 @@ package hu.bitnet.civilparking.Fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +76,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
     public final static int MINUTE = 60 * MILLISECONDS_PER_SECOND;
     SharedPreferences pref;
     public Marker marker;
+    AlertDialog alert_dialog;
 
     public GMap() {
         // Required empty public constructor
@@ -107,7 +110,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
             @Override
             public void onClick(View v) {
                 pref = getActivity().getPreferences(0);
-                loadJSON(pref.getString("sessionId", null), pref.getString("id", null));
+                loadJSON(pref.getString("sessionId", null), pref.getString("id", null), pref.getString("licenceplate", null));
             }
         });
 
@@ -224,7 +227,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
             d = Double.parseDouble(pref.getString("longitude", null));
             LatLng myloc = new LatLng(c, d);
             gmap.animateCamera(CameraUpdateFactory.newLatLng(myloc));
-            gmap.addMarker(new MarkerOptions().position(myloc).title(pref.getString("name", null)));
+            gmap.addMarker(new MarkerOptions().position(myloc).title(pref.getString("name", null)).snippet(pref.getString("description", null))).showInfoWindow();
             gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 18));
         }
 
@@ -236,7 +239,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
         super.onResume();
     }
 
-    public void loadJSON(String sessionId, String id){
+    public void loadJSON(String sessionId, String id, String licenceplate){
 
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -250,7 +253,7 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterfaceParkingstart requestInterface = retrofit.create(RequestInterfaceParkingstart.class);
-        Call<ServerResponse> response= requestInterface.post(sessionId, id);
+        Call<ServerResponse> response= requestInterface.post(sessionId, id, licenceplate);
         response.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
@@ -268,11 +271,12 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
                     Toast.makeText(getContext(), resp.getError().getMessage()+" - "+resp.getError().getMessageDetail(), Toast.LENGTH_SHORT).show();
                     pref = getActivity().getPreferences(0);
                     SharedPreferences.Editor editor = pref.edit();
-                    editor.putBoolean(Constants.IS_LOGGED_IN,false);
+                    showDialog();
+                    /*editor.putBoolean(Constants.IS_LOGGED_IN,false);
                     editor.apply();
                     Intent intent = new Intent(getContext(), MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    startActivity(intent);*/
                 }
             }
 
@@ -283,5 +287,24 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
             }
         });
 
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("A megadott rendszám nem használható!");
+        builder.setMessage("A választott parkolón csak beállított rendszámmal lehet parkolást indítani!")
+                /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })*/
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        alert_dialog = builder.create();
+        alert_dialog.show();
     }
 }
