@@ -1,5 +1,6 @@
 package hu.bitnet.civilparking;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -85,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame);
         if (f instanceof Parking) {//the fragment on which you want to handle your back press
             //do nothing
+        }else if (f instanceof ParkingList) {//the fragment on which you want to handle your back press
+            finish();
+        }else if (f instanceof MapsContainer) {//the fragment on which you want to handle your back press
+            Intent intent = new Intent(getApplication(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }else{
             super.onBackPressed();
         }

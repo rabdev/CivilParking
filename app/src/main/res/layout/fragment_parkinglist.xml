@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorGainsboro"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <TextView
@@ -32,6 +34,8 @@
             android:textAlignment="center"
             android:textColor="@android:color/black"
             android:textSize="28sp"
+            android:nextFocusUp="@id/licenceplate"
+            android:nextFocusLeft="@id/licenceplate"
             android:id="@+id/licenceplate" />
     </LinearLayout>
 

@@ -28,7 +28,6 @@ public class MapsContainer extends Fragment{
     SharedPreferences.Editor editor;
     GMap gMap;
 
-
     public MapsContainer() {
         // Required empty public constructor
     }
