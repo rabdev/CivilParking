@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,7 +67,11 @@ public class Login extends Fragment {
             }
         });
 
+        TextView title = (TextView)((MainActivity)getActivity()).findViewById(R.id.title);
+        title.setText("Bejelentkezés");
 
+        ImageButton settings = (ImageButton)((MainActivity)getActivity()).findViewById(R.id.settings);
+        settings.setVisibility(View.INVISIBLE);
 
         TextView tv_register = (TextView) login.findViewById(R.id.tv_register);
         tv_register.setOnClickListener(new View.OnClickListener() {

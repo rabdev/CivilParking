@@ -7,10 +7,16 @@
     android:orientation="vertical"
     tools:context="hu.bitnet.civilparking.MainActivity">
 
-    <LinearLayout
+    <!--LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="160dp"
         android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/btn_star" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -18,7 +24,54 @@
             android:src="@drawable/cp_header"
             android:scaleType="centerCrop"/>
 
-    </LinearLayout>
+    </LinearLayout-->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/cp_header">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="11px"
+            android:id="@+id/title_main"
+            android:text="CIVIL Parkolás"
+            android:textSize="12pt"
+            android:textColor="@color/colorGray"/>
+
+        <ImageButton
+            android:layout_width="66px"
+            android:layout_height="66px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="22px"
+            android:layout_marginTop="22px"
+            android:background="@drawable/ic_settings"
+            android:id="@+id/settings"/>
+
+        <ImageView
+            android:layout_width="222px"
+            android:layout_height="222px"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/ic_launcher" />
+
+        <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentRight="true"
+             android:layout_alignParentBottom="true"
+             android:paddingRight="22px"
+             android:layout_marginBottom="44px"
+             android:id="@+id/title"
+             android:textSize="12pt"
+             android:textColor="@color/colorGray"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

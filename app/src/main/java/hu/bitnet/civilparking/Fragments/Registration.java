@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,12 @@ public class Registration extends Fragment {
                 }
             }
         });
+
+        TextView title = (TextView)((MainActivity)getActivity()).findViewById(R.id.title);
+        title.setText("Regisztráció");
+
+        ImageButton settings = (ImageButton)((MainActivity)getActivity()).findViewById(R.id.settings);
+        settings.setVisibility(View.INVISIBLE);
 
         TextView tv_login = (TextView) reg.findViewById(R.id.tv_login);
         tv_login.setOnClickListener(new View.OnClickListener() {

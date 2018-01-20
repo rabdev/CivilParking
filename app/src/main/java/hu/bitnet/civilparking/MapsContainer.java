@@ -1,52 +1,19 @@
 package hu.bitnet.civilparking;
 
 
-import android.*;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.Polyline;
 
 import hu.bitnet.civilparking.Fragments.GMap;
-import hu.bitnet.civilparking.Fragments.Hybrid;
-import hu.bitnet.civilparking.Fragments.MapDraw;
 import hu.bitnet.civilparking.Fragments.Satellite;
-import hu.bitnet.civilparking.Objects.Constants;
-
-import static android.support.v4.content.PermissionChecker.checkSelfPermission;
-import static com.google.android.gms.maps.GoogleMap.*;
 
 
 /**
@@ -120,17 +87,20 @@ public class MapsContainer extends Fragment{
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
+                    Satellite sat = new Satellite();
+                    return sat;
+                case 1:
                     gMap = new GMap();
                     return gMap;
-                case 1:
+                /*case 1:
                     Hybrid hybrid = new Hybrid();
                     return hybrid;
                 case 2:
-                    Satellite sat = new Satellite();
-                    return sat;
+                    gMap = new GMap();
+                    return gMap;
                 case 3:
                     MapDraw mapDraw = new MapDraw();
-                    return mapDraw;
+                    return mapDraw;*/
                 default:
                     return null;
             }
@@ -139,20 +109,22 @@ public class MapsContainer extends Fragment{
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 4;
+            return 2;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "Térkép";
+                    return "Műhold";
                 case 1:
+                    return "Térkép";
+                /*case 1:
                     return "Hibrid";
                 case 2:
-                    return "Műhold";
+                    return "Térkép";
                 case 3:
-                    return "Alaprajz";
+                    return "Alaprajz";*/
             }
             return null;
         }

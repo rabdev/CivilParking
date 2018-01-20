@@ -4,12 +4,14 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import hu.bitnet.civilparking.Fragments.Login;
+import hu.bitnet.civilparking.Fragments.Parking;
 import hu.bitnet.civilparking.Fragments.ParkingList;
 import hu.bitnet.civilparking.Objects.Constants;
 
@@ -74,6 +76,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.frame);
+        if (f instanceof Parking) {//the fragment on which you want to handle your back press
+            //do nothing
+        }else{
+            super.onBackPressed();
         }
     }
 

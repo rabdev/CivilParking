@@ -4,7 +4,6 @@ package hu.bitnet.civilparking.Fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
@@ -22,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -105,6 +106,12 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         Button parkStart = (Button)sat.findViewById(R.id.parkStart);
+
+        TextView title = (TextView)((MainActivity)getActivity()).findViewById(R.id.title);
+        title.setText("Parkolás megkezdése");
+
+        ImageButton settings = (ImageButton)((MainActivity)getActivity()).findViewById(R.id.settings);
+        settings.setVisibility(View.INVISIBLE);
 
         parkStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,7 +233,7 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
             d = Double.parseDouble(pref.getString("longitude", null));
             LatLng myloc = new LatLng(c, d);
             gmap.animateCamera(CameraUpdateFactory.newLatLng(myloc));
-            gmap.addMarker(new MarkerOptions().position(myloc).title(pref.getString("name", null))).showInfoWindow();
+            gmap.addMarker(new MarkerOptions().position(myloc).title(pref.getString("name", null)).snippet(pref.getString("description", null))).showInfoWindow();
             gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 18));
         }
 
@@ -258,7 +265,8 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 ServerResponse resp = response.body();
                 if(resp.getAlert() != ""){
-                    Toast.makeText(getContext(), resp.getAlert(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), resp.getAlert(), Toast.LENGTH_LONG).show();
+                    showDialog3(resp.getAlert());
                     Parking parking= new Parking();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
@@ -267,10 +275,15 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
                             .commit();
                 }
                 if(resp.getError() != null){
-                    Toast.makeText(getContext(), resp.getError().getMessage()+" - "+resp.getError().getMessageDetail(), Toast.LENGTH_SHORT).show();
+                    /*Toast.makeText(getContext(), resp.getError().getMessage()+" - "+resp.getError().getMessageDetail(), Toast.LENGTH_SHORT).show();
                     pref = getActivity().getPreferences(0);
                     SharedPreferences.Editor editor = pref.edit();
-                    showDialog();
+                    showDialog();*/
+                    if(resp.getError().getMessage().indexOf("A megadott rendszám") > -1){
+                        showDialog();
+                    }else{
+                        showDialog2(resp.getError().getMessage(), resp.getError().getMessageDetail());
+                    }
                 }
             }
 
@@ -287,6 +300,43 @@ public class Satellite extends Fragment implements LocationListener, OnMapReadyC
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("A megadott rendszám nem használható!");
         builder.setMessage("A választott parkolón csak beállított rendszámmal lehet parkolást indítani!")
+                /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })*/
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        alert_dialog = builder.create();
+        alert_dialog.show();
+    }
+
+    private void showDialog2(String message, String detail) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(message);
+        builder.setMessage(detail)
+                /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })*/
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        alert_dialog = builder.create();
+        alert_dialog.show();
+    }
+
+    private void showDialog3(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
                 /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!

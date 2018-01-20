@@ -4,9 +4,9 @@ package hu.bitnet.civilparking.Fragments;
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -22,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -39,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import hu.bitnet.civilparking.MainActivity;
 import hu.bitnet.civilparking.Objects.Constants;
@@ -105,6 +108,12 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         Button parkStart = (Button)gmap.findViewById(R.id.parkStart);
+
+        TextView title = (TextView)((MainActivity)getActivity()).findViewById(R.id.title);
+        title.setText("Parkolás megkezdése");
+
+        ImageButton settings = (ImageButton)((MainActivity)getActivity()).findViewById(R.id.settings);
+        settings.setVisibility(View.INVISIBLE);
 
         parkStart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +238,17 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
             gmap.animateCamera(CameraUpdateFactory.newLatLng(myloc));
             gmap.addMarker(new MarkerOptions().position(myloc).title(pref.getString("name", null)).snippet(pref.getString("description", null))).showInfoWindow();
             gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(myloc, 18));
+
+            /*PolylineOptions line=
+                    new PolylineOptions().add(new LatLng(47.51678800,
+                                    19.11402100),
+                            new LatLng(47.51682200,
+                                    19.11405000),
+                            new LatLng(47.51677900,
+                                    19.11399300))
+                            .width(5).color(Color.RED);
+
+            gmap.addPolyline(line);*/
         }
 
     }
@@ -259,7 +279,8 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 ServerResponse resp = response.body();
                 if(resp.getAlert() != ""){
-                    Toast.makeText(getContext(), resp.getAlert(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), resp.getAlert(), Toast.LENGTH_LONG).show();
+                    showDialog3(resp.getAlert());
                     Parking parking= new Parking();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
@@ -268,10 +289,14 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
                             .commit();
                 }
                 if(resp.getError() != null){
-                    Toast.makeText(getContext(), resp.getError().getMessage()+" - "+resp.getError().getMessageDetail(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), resp.getError().getMessage()+" - "+resp.getError().getMessageDetail(), Toast.LENGTH_SHORT).show();
+                    if(resp.getError().getMessage().indexOf("A megadott rendszám") > -1){
+                        showDialog();
+                    }else{
+                        showDialog2(resp.getError().getMessage(), resp.getError().getMessageDetail());
+                    }
                     pref = getActivity().getPreferences(0);
                     SharedPreferences.Editor editor = pref.edit();
-                    showDialog();
                     /*editor.putBoolean(Constants.IS_LOGGED_IN,false);
                     editor.apply();
                     Intent intent = new Intent(getContext(), MainActivity.class);
@@ -293,6 +318,43 @@ public class GMap extends Fragment implements LocationListener, OnMapReadyCallba
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("A megadott rendszám nem használható!");
         builder.setMessage("A választott parkolón csak beállított rendszámmal lehet parkolást indítani!")
+                /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })*/
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        alert_dialog = builder.create();
+        alert_dialog.show();
+    }
+
+    private void showDialog2(String message, String detail) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(message);
+        builder.setMessage(detail)
+                /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })*/
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        alert_dialog = builder.create();
+        alert_dialog.show();
+    }
+
+    private void showDialog3(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
                 /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!

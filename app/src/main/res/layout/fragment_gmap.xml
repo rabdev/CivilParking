@@ -20,6 +20,7 @@
         android:layout_marginBottom="22pt"
         android:layout_centerHorizontal="true"
         android:background="@drawable/round_button"
+        android:textColor="@color/colorPrimary"
         android:paddingLeft="4pt"
         android:paddingRight="4pt"
         android:text="Parkolás indítása"/>

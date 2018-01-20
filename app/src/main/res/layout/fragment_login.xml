@@ -54,7 +54,7 @@
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Password"
+                        android:hint="Jelszó"
                         android:inputType="textPassword"
                         android:textColor="@color/colorBlack" />
 
@@ -67,8 +67,8 @@
                     android:layout_marginLeft="12dp"
                     android:layout_marginRight="12dp"
                     android:layout_marginTop="24dp"
-                    android:background="@color/colorAccent"
-                    android:text="Sign in"
+                    android:background="@drawable/round_button"
+                    android:text="Bejelentkezés"
                     android:textColor="@android:color/white" />
 
 
@@ -82,7 +82,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Don't have an account?"
+                        android:text="Nincs még fiókja?"
                         android:textColor="@color/colorBlack" />
 
                     <TextView
@@ -90,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="Sign up"
+                        android:text="Regisztráció"
                         android:textColor="@color/colorPrimaryDark" />
 
                 </LinearLayout>

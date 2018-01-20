@@ -1,17 +1,21 @@
 package hu.bitnet.civilparking.Fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import hu.bitnet.civilparking.MainActivity;
@@ -35,6 +39,7 @@ import static android.content.ContentValues.TAG;
 public class Parking extends Fragment {
 
     SharedPreferences pref;
+    AlertDialog alert_dialog;
 
     public Parking() {
         // Required empty public constructor
@@ -50,6 +55,12 @@ public class Parking extends Fragment {
         Button stop = (Button)parking.findViewById(R.id.stop);
 
         chronometer.start();
+
+        TextView title = (TextView)((MainActivity)getActivity()).findViewById(R.id.title);
+        title.setText("Parkolás folyamatban");
+
+        ImageButton settings = (ImageButton)((MainActivity)getActivity()).findViewById(R.id.settings);
+        settings.setVisibility(View.INVISIBLE);
 
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +94,8 @@ public class Parking extends Fragment {
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                 ServerResponse resp = response.body();
                 if(resp.getAlert() != ""){
-                    Toast.makeText(getContext(), resp.getAlert(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), resp.getAlert(), Toast.LENGTH_LONG).show();
+                    showDialog(resp.getAlert());
                     ParkingList parkingList= new ParkingList();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction()
@@ -110,6 +122,24 @@ public class Parking extends Fragment {
             }
         });
 
+    }
+
+    private void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
+                /*.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // FIRE ZE MISSILES!
+                    }
+                })*/
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+        // Create the AlertDialog object and return it
+        alert_dialog = builder.create();
+        alert_dialog.show();
     }
 
 }
