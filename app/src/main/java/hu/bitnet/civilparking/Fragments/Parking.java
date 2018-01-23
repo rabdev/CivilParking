@@ -1,9 +1,14 @@
 package hu.bitnet.civilparking.Fragments;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,11 +17,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.concurrent.TimeUnit;
 
 import hu.bitnet.civilparking.MainActivity;
 import hu.bitnet.civilparking.Objects.Constants;
@@ -40,6 +49,10 @@ public class Parking extends Fragment {
 
     SharedPreferences pref;
     AlertDialog alert_dialog;
+    ImageView parking_clock;
+    Drawable d;
+    ObjectAnimator hours;
+    ObjectAnimator min;
 
     public Parking() {
         // Required empty public constructor
@@ -52,7 +65,13 @@ public class Parking extends Fragment {
         // Inflate the layout for this fragment
         View parking = inflater.inflate(R.layout.fragment_parking, container, false);
         final Chronometer chronometer = (Chronometer)parking.findViewById(R.id.chronometer);
+        parking_clock= (ImageView) parking.findViewById(R.id.parking_clock);
         Button stop = (Button)parking.findViewById(R.id.stop);
+        d=parking_clock.getDrawable();
+        hours = (ObjectAnimator) AnimatorInflater.loadAnimator(getActivity(), R.animator.hours_rotation);
+        min = (ObjectAnimator) AnimatorInflater.loadAnimator(getActivity(),R.animator.min_animation);
+        //hours.setDuration(3600000000);
+        //min.setDuration(TimeUnit.MILLISECONDS.convert(60000));
 
         chronometer.start();
 
@@ -62,9 +81,16 @@ public class Parking extends Fragment {
         ImageButton settings = (ImageButton)((MainActivity)getActivity()).findViewById(R.id.settings);
         settings.setVisibility(View.INVISIBLE);
 
+        if (d instanceof Animatable){
+            ((Animatable)d).start();
+        }
+
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (d instanceof Animatable) {
+                    ((Animatable) d).stop();
+                }
                 chronometer.stop();
                 pref = getActivity().getPreferences(0);
                 loadJSON(pref.getString("sessionId", null), pref.getString("id", null));
