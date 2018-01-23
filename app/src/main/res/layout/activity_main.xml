@@ -26,19 +26,19 @@
 
     </LinearLayout-->
 
-    <!--RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="160dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/cp_header"-->
-
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="160dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimary">
+        android:background="@drawable/cp_header">
+
+    <!--RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimary"-->
 
         <TextView
             android:layout_width="wrap_content"
